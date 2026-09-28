@@ -45,7 +45,7 @@ h1 {
   padding-top: 15px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 40px;
+  padding-bottom: 25px;
   margin-left: 65px;
   gap: 10px;
 }
@@ -74,13 +74,17 @@ h2 {
   margin-bottom: 2px;
 }
 
+.education-fix {
+  padding-bottom: 40px;
+}
+
 .division-three {
   background-color: #E5E7EB;
   color: #1F2937;
   display: flex;
   flex-direction: column;
   padding-top: 15px;
-  padding-bottom: 40px;
+  padding-bottom: 25px;
   padding-left: 65px;
 }
 
@@ -104,6 +108,7 @@ h2 {
 
 .skills {
   gap: 5px;
+  margin-bottom: 15px;
 }
 
 .footer {

@@ -25,7 +25,7 @@ function App() {
           </ul>
         </header>
       </div>
-      <div className='division-two'>
+      <div className='division-two education-fix'>
         <h2>Education</h2>
         <div className='education'>
           <div className='school'>
@@ -50,7 +50,7 @@ function App() {
           <div className='degree'><em>Credential URL: https://coursera.org/verify/professional-cert/KWHLGSLN8PNR</em></div>
         </div>
       </div>
-      <div className='division-three'>
+      <div className='division-three experience'>
         <h2>Work Experience</h2>
         <div className='work'>
           <div className='school'>
@@ -83,7 +83,7 @@ function App() {
             <div><strong><a href="https://jochengi.github.io/Personal-Website/">Personal Website</a></strong>, <em>Independent Project</em> - JavaScript, HTML, CSS</div>
           </div>
           <ul className='highlights'>
-            <li>Designed and developed a responsive portfolio website using HTML5, CSS3, and JavaScript</li>
+            <li>Showcases undergraduate degrees, certificates, and other projects</li>
             <li>Developed an interactive Blackjack game</li>
           </ul>
           <div className='school'>
