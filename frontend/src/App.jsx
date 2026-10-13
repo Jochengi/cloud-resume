@@ -1,4 +1,5 @@
 import './index.css'
+import profilePic from './images/Clear headshot.jpg';
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
         <header>
           <div className='intro'>
             <h1>Jonathan Eng</h1>
-            <img src="src/images/Clear headshot.JPG" alt="Profile Picture" class="circular-image"></img>
+            <img src={profilePic} alt="Profile Picture" class="circular-image"></img>
           </div>
           <ul className='contact-info'>
             <li>Nanuet, NY</li>
