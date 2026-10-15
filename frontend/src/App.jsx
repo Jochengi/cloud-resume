@@ -68,7 +68,7 @@ function App() {
           </ul>
           <div className='school'>
             <div><strong>Independent Contractor - Outlier AI</strong>, Remote</div>
-            <div>December 2024 - Present</div>
+            <div>May 2024 - December 2024</div>
           </div>
           <ul className='highlights'>
             <li>Evaluated AI-generated responses, performed validation and testing, and identified prompt failures to improve model
@@ -89,7 +89,7 @@ function App() {
             <li>Architecting a serverless backend to track visitor metrics, utilizing Terraform to provision a DynamoDB table and Lambda functions</li>
           </ul>
           <div className='school'>
-            <div><strong>Roblox Fried Finder</strong>, <em>Group Project</em> - Python, HTML, PostgreSQL</div>
+            <div><strong>Roblox Friend Finder</strong>, <em>Group Project</em> - Python, HTML, PostgreSQL</div>
           </div>
           <ul className='highlights'>
             <li>Developed a mock Roblox database-backed web application</li>
