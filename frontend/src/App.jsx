@@ -40,7 +40,7 @@ function App() {
             <div><strong>Bard College/Conservatory of Music</strong>, Annandale-on-Hudson, NY</div>
             <div>September 2018 - May 2024</div>
           </div>
-          <div className='degree'><em>Bachelor of Science in Mathematics</em></div>
+          <div className='degree'><em>Bachelor of Arts in Mathematics</em></div>
           <div className='degree'><em>Bachelor of Music in Viola Performance</em></div>
         </div>
         <div className='education'>
