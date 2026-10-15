@@ -40,8 +40,8 @@ function App() {
             <div><strong>Bard College/Conservatory of Music</strong>, Annandale-on-Hudson, NY</div>
             <div>September 2018 - May 2024</div>
           </div>
-          <div className='degree'><em>Bachelor of Science in Computer Mathematics</em></div>
-          <div className='degree'><em>Bachelor of Music in Computer Viola Performance</em></div>
+          <div className='degree'><em>Bachelor of Science in Mathematics</em></div>
+          <div className='degree'><em>Bachelor of Music in Viola Performance</em></div>
         </div>
         <div className='education'>
           <div className='school'>
@@ -59,15 +59,15 @@ function App() {
             <div>December 2024 - Present</div>
           </div>
           <ul className='highlights'>
-            <li>Pioneered Python scripts that automatically generate and deliver emails for MFA setup. Dynamically generates HTML
-              content and leverages the Google Authenticator API to produce QR codes. Constantly updated code to meet new security
+            <li>Pioneered Python scripts that automatically generate and deliver emails for MFA setup. Dynamically generated HTML
+              content and leveraged the Google Authenticator API to produce QR codes. Constantly updated code to meet new security
               requirements, such as allowing a new email address domain. Now deployed regionally.</li>
             <li>Developed a Batch script-based service that integrates with Windows Task Scheduler to schedule Windows updates for user
               workstations and automate update failure recovery mechanisms.</li>
             <li>Managed user accounts and provided technical support, ensuring operational continuity and security compliance.</li>
           </ul>
           <div className='school'>
-            <div><strong>Independent Contractor - Outlier, AI</strong>, Remote</div>
+            <div><strong>Independent Contractor - Outlier AI</strong>, Remote</div>
             <div>December 2024 - Present</div>
           </div>
           <ul className='highlights'>
@@ -81,17 +81,18 @@ function App() {
         <h2 className='project-header'>Project Experience</h2>
         <div className='work'>
           <div className='school'>
-            <div><strong><a href="https://jochengi.github.io/Personal-Website/">Personal Website</a></strong>, <em>Independent Project</em> - JavaScript, HTML, CSS</div>
+            <div><strong>Cloud Resume Challenge (In Progress)</strong>, <em>Independent Project</em> - JavaScript, HTML, CSS</div>
           </div>
           <ul className='highlights'>
-            <li>Showcases undergraduate degrees, certificates, and other projects</li>
-            <li>Developed an interactive Blackjack game</li>
+            <li>Deployed a highly available static resume website using AWS S3 and CloudFront, configuring AWS Route 53 for custom domain management and DNS routing via Terraform</li>
+            <li>Developed a responsive single-page user interface using React, utilizing Vite for efficient asset bundling and instant hot module replacement (HMR)</li>
+            <li>Architecting a serverless backend to track visitor metrics, utilizing Terraform to provision a DynamoDB table and Lambda functions</li>
           </ul>
           <div className='school'>
             <div><strong>Roblox Fried Finder</strong>, <em>Group Project</em> - Python, HTML, PostgreSQL</div>
           </div>
           <ul className='highlights'>
-            <li>Developed a database-backed web application using Python, HTML, PostgreSQL, and SQL</li>
+            <li>Developed a mock Roblox database-backed web application</li>
             <li>Designed SQL queries and implemented authentication tokens while protecting against SQL injection attacks</li>
           </ul>
           <div className='school'>
@@ -99,24 +100,17 @@ function App() {
           </div>
           <ul className='highlights'>
             <li>Solves any Sudoku puzzle by inputting the starting board as a string of numbers, with 0 for blank tiles</li>
-            <li>Incorporates backtracking algorithm with minimum remaining value heuristic and forward checking</li>
-          </ul>
-          <div className='school'>
-            <div><strong>Common words Finder</strong>, <em>Independent Project</em> - Java</div>
-          </div>
-          <ul className='highlights'>
-            <li>Implemented and compared Binary Search Tree, A VL Tree, and Hash Map data structures for word-frequency analysis</li>
-            <li>Processed over 13,000 unique words to evaluate the performance of multiple data structure implementations</li>
+            <li>Incorporates a backtracking algorithm with the minimum remaining value heuristic and forward checking</li>
           </ul>
         </div>
       </div>
       <div className='division-three'>
         <h2>Technical Skills</h2>
         <div className='work skills'>
-          <div><strong>Languages:</strong> Python, Java, C/C++, JavaScript, HTML/CSS, SQL, Bash</div>
-          <div><strong>Technologies:</strong> PostgreSQL, Linux, Git, Google Cloud Platform</div>
-          <div><strong>Skills:</strong> Software Development, Object-Oriented Programming, Data Structures, Algorithms, Automation, Web Development, Systems
-            Administration, Troubleshooting</div>
+          <div><strong>Languages:</strong> Python, HTML/CSS, JavaScript, SQL, Java, C/C++, Bash</div>
+          <div><strong>Technologies:</strong> React, Vite, Terraform, AWS, PostgreSQL, Linux, Git, Google Cloud Platform (GCP)</div>
+          <div><strong>Skills:</strong> Software Development, Automation, Web Development, Infrastructure as Code (IaC), Object-Oriented Programming, Data 
+            Structures, Algorithms, Systems Administration, Troubleshooting</div>
         </div>
       </div>
       <div className='footer'>Copyright @ Jochengi 2026</div>
