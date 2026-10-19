@@ -157,3 +157,83 @@ resource "aws_route53_record" "www" {
     evaluate_target_health = false
   }
 }
+
+
+
+resource "aws_dynamodb_table" "visitor_counter" {
+  name         = "cloud_resume_visitor_counter"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+}
+
+# Automate zipping of Python backend application file
+data "archive_file" "lambda_zip" {
+  type = "zip"
+  source_file = "${path.module}/lambdas/cdn_counter.py"
+  output_path = "${path.module}/lambdas/cdn_counter.zip"
+}
+
+# Create IAM role and authorize Lambda service to wear badge
+resource "aws_iam_role" "lambda_role" {
+  name = "cloud-resume-lambda-executor"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Effect    = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+# Create laser-guided permission policy target
+resource "aws_iam_policy" "lambda_dynamo_policy" {
+  name        = "cloud-resume-lambda-dynamodb"
+  description = "Grants the resume Lambda function targeted access to write data to DynamoDB"
+
+  policy = jsonencode({
+    Version   = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = [
+          "dynamodb:UpdateItem",
+          "dynamodb:GetItem"
+        ]
+        Resource = "${aws_dynamodb_table.visitor_counter.arn}" # Dynamic address lock
+      }
+    ]
+  })
+}
+
+# Clip the completed permission policy onto Lambda security role
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.lambda_dynamo_policy.arn
+}
+
+# Create Lambda environment
+resource "aws_lambda_function" "visitor_counter_api" {
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  function_name    = "cloud-resume-api"
+  role             = aws_iam_role.lambda_role.arn
+  runtime          = "python3.12"
+  handler          = "cdn_counter.lambda_handler"
+
+  environment {
+    variables = {
+      DYNAMO_TABLE = aws_dynamodb_table.visitor_counter.name
+    }
+  }
+}
