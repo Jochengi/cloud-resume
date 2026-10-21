@@ -12,9 +12,9 @@ def lambda_handler(event, context):
     # Execute Atomic increment
     response = table.update_item(
       Key={'id': 'visits'},
-      UpdateExpression="SET #c = #c + :val",
+      UpdateExpression="SET #c = if_not_exists(#c, :start) + :val",
       ExpressionAttributeNames={'#c': 'Count'},
-      ExpressionAttributeValues={':val': 1},
+      ExpressionAttributeValues={':val': 1, ':start': 0},
       ReturnValues="UPDATED_NEW"
     )
 

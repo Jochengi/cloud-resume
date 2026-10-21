@@ -160,6 +160,7 @@ resource "aws_route53_record" "www" {
 
 
 
+# Create DynamoDB table
 resource "aws_dynamodb_table" "visitor_counter" {
   name         = "cloud_resume_visitor_counter"
   billing_mode = "PAY_PER_REQUEST"
@@ -196,7 +197,7 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
-# Create laser-guided permission policy target
+# Create permission policy target
 resource "aws_iam_policy" "lambda_dynamo_policy" {
   name        = "cloud-resume-lambda-dynamodb"
   description = "Grants the resume Lambda function targeted access to write data to DynamoDB"
@@ -208,9 +209,15 @@ resource "aws_iam_policy" "lambda_dynamo_policy" {
         Effect   = "Allow"
         Action   = [
           "dynamodb:UpdateItem",
-          "dynamodb:GetItem"
+          "dynamodb:GetItem",
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
         ]
-        Resource = "${aws_dynamodb_table.visitor_counter.arn}" # Dynamic address lock
+        Resource = [
+          "${aws_dynamodb_table.visitor_counter.arn}", # Dynamic address lock
+          "arn:aws:logs:*:*:*" # Write logs
+        ]
       }
     ]
   })
@@ -236,4 +243,50 @@ resource "aws_lambda_function" "visitor_counter_api" {
       DYNAMO_TABLE = aws_dynamodb_table.visitor_counter.name
     }
   }
+}
+
+
+
+# Create Global HTTP API Gateway Conatiner Shell
+resource "aws_apigatewayv2_api" "http_api" {
+  name          = "cloud-resume-http-api"
+  protocol_type = "HTTP"
+
+  # Matches cdn_counter.py headers
+  cors_configuration {
+    allow_origins = ["*"]
+    allow_methods = ["GET", "POST", "OPTIONS"]
+    allow_headers = ["Content-Type"]
+    max_age       = 300
+  }
+}
+
+# Create Integration between Gateway and Lambda
+resource "aws_apigatewayv2_integration" "lambda_integration" {
+  api_id           = aws_apigatewayv2_api.http_api.id
+  integration_type = "AWS_PROXY"
+  integration_uri  = aws_lambda_function.visitor_counter_api.invoke_arn
+}
+
+# Define Explicit API URL Route Pathway
+resource "aws_apigatewayv2_route" "counter_route" {
+  api_id = aws_apigatewayv2_api.http_api.id
+  route_key  = "GET /views"
+  target = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+# Create permission for Gateway to access Lambda
+resource "aws_lambda_permission" "api_gateway_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.visitor_counter_api.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
+}
+
+# Deploy API Live onto Root URL Environmental Stage
+resource "aws_apigatewayv2_stage" "api_stage" {
+  api_id      = aws_apigatewayv2_api.http_api.id
+  name        = "$default"   # Automatically serves routes on root domain path
+  auto_deploy = true
 }
