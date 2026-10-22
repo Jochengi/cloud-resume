@@ -1,7 +1,26 @@
 import './index.css'
 import profilePic from './images/Clear headshot.jpg';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [count, setCount] = useState("...");
+  useEffect(() => {
+    fetch("https://wv5p1vzt14.execute-api.us-east-1.amazonaws.com/views")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: $(response.status)`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setCount(data.count);
+      })
+      .catch(error => {
+        console.error("Error updatig telemetry count:", error);
+        setCount("Error");
+      })
+  }, []); // [] is the dependency array, which is needed to ensure useEffect only runs once
+
   return (
     <><div className='division-one'>
         <header>
@@ -113,7 +132,7 @@ function App() {
             Structures, Algorithms, Systems Administration, Troubleshooting</div>
         </div>
       </div>
-      <div className='footer'>Copyright @ Jochengi 2026</div>
+      <div className='footer'>@ 2026 Jonathan Eng | Page Views: {count}</div>
     </>
   )
 }
