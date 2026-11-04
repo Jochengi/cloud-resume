@@ -297,8 +297,8 @@ resource "aws_apigatewayv2_stage" "api_stage" {
 
 # Establish cryptographic trust link with GitHub's auth servers
 resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://githubusercontent.com"
-  client_id_list  = ["://aazonaws.com"]
+  url             = "https://token.actions.githubusercontent.com"
+  client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1", "1c5876685f87b613a93b5114d809105522f575c9"]
 }
 
