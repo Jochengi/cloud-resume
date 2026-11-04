@@ -1,0 +1,46 @@
+name: Backend Cloud Infrastructure Deployer
+
+# Trigger the workflow ONLY when changes are pushed specifically to the backend folder
+on:
+  push:
+    paths:
+      - 'backend/**'
+  workflow_dispatch: # Allows manual trigger to build from GitHub if needed
+
+# Grant permissions required for secure OIDC Token exchange with AWS
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout code files into virtual runner's environment workspace
+      - name: Checkout Code Base
+        uses: actions/checkout@v4
+
+      # Authenticate with AWS using passwordless OIDC Keycard Role
+      - name: Authenticate with AWS via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer
+          aws-region: us-east-1
+          audience: ://amazonaws.com
+
+      # Initialize Terraform environment workspace on virtual runner
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.0"
+
+      # Execute standard compilation infrastructure pipeline
+      - name: Initialize Terraform Project Modules
+        run: |
+          cd backend/
+          terraform init
+
+      - name: Deploy Infrastructure and Code Updates Live
+        run: |
+          cd backend/
+          terraform apply -auto-approve

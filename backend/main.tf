@@ -290,3 +290,46 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   name        = "$default"   # Automatically serves routes on root domain path
   auto_deploy = true
 }
+
+
+
+# OpenID Connect (OIDC) Authentication Layer
+
+# Establish cryptographic trust link with GitHub's auth servers
+resource "aws_iam_openid_connect_provider" "github" {
+  url             = "https://githubusercontent.com"
+  client_id_list  = ["://aazonaws.com"]
+  thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1", "1c5876685f87b613a93b5114d809105522f575c9"]
+}
+
+# Create specialized security badge for GitHub deployment runners
+resource "aws_iam_role" "github_actions_role" {
+  name = "cloud-resume-github-deployer"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github.arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "://githubusercontent.com:aud" = "://amazonaws.com"
+          }
+          StringLike = {
+            "://githubusercontent.com:sub" = "repo:Jochengi/cloud-resume:*"
+          }
+        }
+      }
+    ]
+  })
+}
+
+# Grant runner full power to update infrastructure and frontend files
+resource "aws_iam_role_policy_attachment" "github_admin_attach" {
+  role       = aws_iam_role.github_actions_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}

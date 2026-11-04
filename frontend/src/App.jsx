@@ -105,7 +105,7 @@ function App() {
           <ul className='highlights'>
             <li>Deployed a highly available static resume website using AWS S3 and CloudFront, configuring AWS Route 53 for custom domain management and DNS routing via Terraform</li>
             <li>Developed a responsive single-page user interface using React, utilizing Vite for efficient asset bundling and instant hot module replacement (HMR)</li>
-            <li>Architecting a serverless backend to track visitor metrics, utilizing Terraform to provision a DynamoDB table and Lambda functions</li>
+            <li>Architected a serverless backend to track visitor metrics, utilizing Terraform to provision a DynamoDB table and Lambda functions</li>
           </ul>
           <div className='school'>
             <div><strong>Roblox Friend Finder</strong>, <em>Group Project</em> - Python, HTML, PostgreSQL</div>
