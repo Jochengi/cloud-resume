@@ -25,7 +25,6 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer
           aws-region: us-east-1
-          audience: ://amazonaws.com
 
       # Spin up Node.js runtime environment to compile React components
       - name: Install Node.js Environment Runtime
