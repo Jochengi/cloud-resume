@@ -24,7 +24,7 @@ jobs:
       - name: Authenticate with AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer
+          role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer-v2
           aws-region: us-east-1
 
       # Initialize Terraform environment workspace on virtual runner
