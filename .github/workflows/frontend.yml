@@ -23,7 +23,7 @@ jobs:
       - name: Authenticate with AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer-v2
+          role-to-assume: arn:aws:iam::329539068222:role/cloud-resume-github-deployer
           aws-region: us-east-1
 
       # Spin up Node.js runtime environment to compile React components

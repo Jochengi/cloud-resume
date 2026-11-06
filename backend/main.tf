@@ -304,7 +304,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 
 # Create specialized security badge for GitHub deployment runners
 resource "aws_iam_role" "github_actions_role" {
-  name = "cloud-resume-github-deployer-v2"
+  name = "cloud-resume-github-deployer"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
